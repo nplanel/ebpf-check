@@ -25,6 +25,7 @@ import (
 	"io/ioutil"
 	"os"
 	"runtime"
+	"strings"
 	"time"
 	"unsafe"
 
@@ -81,9 +82,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err = loadJumpMap(module); err != nil {
-		fmt.Printf("Unable to load eBPF jump table (host %s) :\n%s\n", runtime.GOARCH, err)
-		os.Exit(1)
+	if strings.Contains(os.Args[1], "gre") {
+		if err = loadJumpMap(module); err != nil {
+			fmt.Printf("Unable to load eBPF jump table (host %s) :\n%s\n", runtime.GOARCH, err)
+			os.Exit(1)
+		}
 	}
 
 	socketFilter := module.SocketFilter("socket_flow_table")

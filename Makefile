@@ -12,6 +12,7 @@ build-check:
 check: build-check
 	$(MAKE) -C $(SKYDIVE_PATH) WITH_EBPF=true ebpf.build
 	sudo ./check_load_ebpf $(SKYDIVE_PATH)/probe/ebpf/flow.o
+	sudo ./check_load_ebpf $(SKYDIVE_PATH)/probe/ebpf/flow-gre.o
 
 clean:
 	rm -f check_load_ebpf
